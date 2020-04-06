@@ -1,134 +1,59 @@
-import React,{useState} from "react";
-import {Link} from "react-router-dom";
-import {Grid, Typography,Divider, Button,List, Hidden,ListItem,ListItemText, Tabs, Tab, Paper, useMediaQuery, SwipeableDrawer} from "@material-ui/core";
-import { useTheme,makeStyles } from "@material-ui/styles";
-import styles from "./header.styles";
-import {IconButton} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import headerList from "./headerlist";
+import React,{useState,useEffect} from "react";
+import {Button, Grid, Typography,Hidden,useMediaQuery} from "@material-ui/core";
+import Navbar from "../navbar/navbar.component";
+import styles from "./header.style";
+import {useTheme} from "@material-ui/styles";
+import RegistrationBlock from "../registration-block/registration-block.component";
 
 
-export default function Header(){
-    const [value, setValue] = useState(0);
+export default function Header() {
+
+
     const classes = styles();
     const theme = useTheme();
-    const [open,setOpen] = useState(false);
+    const matchesMd = useMediaQuery(theme.breakpoints.down("md"));
+    const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
+
+    return(
+
+        <div className="header">
+            <div className={classes.headerContainer}>
+                <div className={classes.headerImage}>
+
+                </div>
+
+                <Grid container alignItems={"center"} direction={matchesMd ? "column":"row"} className={classes.headerOverlay} justify={matchesMd ? "center":"space-between"}>
+
+
+                    <Hidden mdDown>
+                    <Grid item style={{height:"15rem",width:"5px",backgroundColor:"white",margin:"0 2em 0 5em"}}/>
+                    </Hidden>
+
+                    <Grid item style={{margin:matchesMd ? "3rem 1rem":"0 auto 0 0"}}>
+                        <Typography  variant={"h5"} style={{color:"white"}}>
+                            Learning Online Becomes Easier
+                       </Typography>
 
 
 
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
+                    </Grid>
 
-    const drawer = (
-
-            <React.Fragment>
-                <SwipeableDrawer classes={{paper:classes.drawer}} onClose={()=>setOpen(false)} onOpen={()=>setOpen(true)} open={open}>
-
-                    <List>
-                        {
-                            headerList.map(list=>{
-                                return(
-                                    <div key={list.key}>
-
-                                        <ListItem className={classes.drawerItem} button onClick={() => {
-                                            setOpen(false);
-                                        }} disableRipple>
-                                            <ListItemText disableTypography>{list.name}</ListItemText>
-                                        </ListItem>
-                                        < Divider classes={{root:classes.divider}}/>
-
-                                    </div>
-                                )
-                            })
-                        }
+                    <Grid item style={{ marginRight:"2rem",}}>
+                      <RegistrationBlock/>
 
 
+                    </Grid>
 
 
+                </Grid>
+
+            </div>
 
 
-                    </List>
+            <div className={classes.headerNav}>
+                <Navbar />
+            </div>
 
-
-
-
-                </SwipeableDrawer>
-
-                <IconButton onClick={()=>setOpen(!open)}  className={classes.drawerIconContainer} disableRipple>
-                    <MenuIcon className={classes.drawerIcon}/>
-                </IconButton>
-            </React.Fragment>
-
+        </div>
     )
-
-    const tabs = (
-            <React.Fragment>
-                <Tabs
-                    value={value}
-                    color={""}
-                    onChange={handleChange}
-                    aria-label="disabled tabs example"
-                    className={classes.tabs}
-                    indicatorColor={"primary"}
-
-
-
-
-
-
-                >
-                    {
-                        headerList.map(list=>{
-                            return(
-                                <Tab key={list.key}  className={classes.tabItem}  label={list.name} disableRipple/>
-                            )
-                        })
-                    }
-
-
-
-
-                </Tabs>
-
-            </React.Fragment>
-        )
-
-
-
-    
-   return(
-    <div>
-        <Grid container style={{padding:"1.5rem 3rem"}}  alignItems={"center"}>
-           <Grid item >
-               <Grid item container>
-                   <Grid item className={classes.icon} >
-                       <Typography variant={"h3"}>
-                            e
-                       </Typography>
-                   </Grid>
-                   <Grid item >
-                       <Typography variant={"h3"}>
-                           learning
-                       </Typography>
-                   </Grid>
-               </Grid>
-           </Grid>
-
-            <Grid item style={{marginLeft:"auto"}}>
-               <Hidden mdDown>{tabs}</Hidden>
-               <Hidden lgUp>{drawer}</Hidden>
-
-            </Grid>
-
-
-
-
-
-
-        </Grid>
-
-    </div>
-    
-   )
 }

@@ -11,18 +11,17 @@ const styles = makeStyles(theme=>({
         marginRight:".6rem",
         fontSize:"3rem",
         backgroundColor:theme.palette.common.yellow,
+        color:theme.palette.common.purple,
         borderRadius:"50%",
+        [theme.breakpoints.down('xs')]:{
+            marginRight:0
+        }
     },
     drawerItem:{
         padding:"0.4rem 2rem",
         fontFamily:"Montserrat",
 
-        "&:hover":{
-            backgroundColor:"transparent"
-        },
-        "&:selected":{
-            backgroundColor:"transparent"
-        }
+
 
 
     },
@@ -32,10 +31,9 @@ const styles = makeStyles(theme=>({
     divider:{
         backgroundColor:"white"
     },
-    tabItem:{
-        "&:focus .MuiTouchRipple-root":{
 
-        }
+    header:{
+        color:"white"
     }
 
 
