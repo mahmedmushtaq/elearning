@@ -7,14 +7,20 @@ import styles from "./navbar.styles";
 import {IconButton} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import navbarlist from "./navbarlist";
+import {connect} from "react-redux";
+import {combineReducers} from "redux";
+ import {isWindowScroll} from "../../redux/windowMain/windowMain.reselect";
+import {createStructuredSelector} from "reselect";
 
 
-export default function Navbar(){
+ const Navbar = (props)=>{
     const [value, setValue] = useState(0);
     const classes = styles();
     const theme = useTheme();
     const [open,setOpen] = useState(false);
     const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
+    const {isWindowScroll} = props;
+    console.log("check window scroll"+isWindowScroll);
 
 
 
@@ -24,8 +30,8 @@ export default function Navbar(){
 
     const drawer = (
 
-            <React.Fragment>
-                <SwipeableDrawer classes={{paper:classes.drawer}} onClose={()=>setOpen(false)} onOpen={()=>setOpen(true)} open={open}>
+            <React.Fragment >
+                <SwipeableDrawer  classes={{paper:isWindowScroll ? classes.drawerScroll:classes.drawer}} onClose={()=>setOpen(false)} onOpen={()=>setOpen(true)} open={open}>
 
                     <List>
                         {
@@ -33,7 +39,7 @@ export default function Navbar(){
                                 return(
                                     <div key={list.key}>
 
-                                        <ListItem className={classes.drawerItem} button onClick={() => {
+                                        <ListItem className={classes.drawerItem} component={Link} to={list.path} duration={500} smooth={true} button onClick={() => {
                                             setOpen(false);
                                         }} disableRipple>
                                             <ListItemText disableTypography>{list.name}</ListItemText>
@@ -74,12 +80,9 @@ export default function Navbar(){
                     className={classes.tabs}
                     indicatorColor={"primary"}
 
+                    classes={{indicator:classes.indicator}}
 
-
-
-
-
-                >
+         >
                     {
                         navbarlist.map(list=>{
                             return(
@@ -101,10 +104,11 @@ export default function Navbar(){
     
    return(
 
-        <Grid container className={classes.header} style={{padding:matchesXS ? "1rem":"1.5rem 3rem"}}  alignItems={"center"}>
-            <Grid item>
+       <Grid container>
+        <Grid container className={!isWindowScroll? classes.navBarContainer:classes.navBarContainerScroll } style={{padding:matchesXS ? "1rem":"1.5rem 3rem"}}  alignItems={"center"}>
+            <Grid item style={{marginTop:matchesXS ?"4px":undefined }}>
                 <Grid item container>
-                    <Grid item className={classes.icon} >
+                    <Grid item className={isWindowScroll ?classes.iconScroll :classes.icon} >
                         <Typography variant={"h4"}>
                             e
                         </Typography>
@@ -117,9 +121,10 @@ export default function Navbar(){
                 </Grid>
             </Grid>
 
+
             <Grid item style={{marginLeft:"auto"}}>
                <Hidden mdDown>{tabs}</Hidden>
-               <Hidden lgUp>{drawer}</Hidden>
+                <Hidden lgUp>{drawer}</Hidden>
 
             </Grid>
 
@@ -129,8 +134,13 @@ export default function Navbar(){
 
 
         </Grid>
+       </Grid>
 
 
     
    )
 }
+const mapStateToProps = createStructuredSelector({
+      isWindowScroll
+})
+export default connect(mapStateToProps)(Navbar)

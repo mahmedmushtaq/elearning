@@ -4,15 +4,29 @@ import Navbar from "../navbar/navbar.component";
 import styles from "./header.style";
 import {useTheme} from "@material-ui/styles";
 import RegistrationBlock from "../registration-block/registration-block.component";
+import {Waypoint} from "react-waypoint";
+import {connect} from"react-redux";
+import {setWindowMainScroll} from "../../redux/windowMain/windowMain.actions";
 
 
-export default function Header() {
+function Header(props) {
 
 
     const classes = styles();
     const theme = useTheme();
     const matchesMd = useMediaQuery(theme.breakpoints.down("md"));
     const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
+    const {setWindowMainScroll} = props;
+
+
+    const handleEnter = ()=>{
+        setWindowMainScroll(false);
+
+    }
+    const handleLeave = ()=>{
+        setWindowMainScroll(true);
+    }
+
 
     return(
 
@@ -38,7 +52,7 @@ export default function Header() {
 
                     </Grid>
 
-                    <Grid item style={{ marginRight:"2rem",}}>
+                    <Grid item style={{ marginRight:matchesXS ? undefined:"2rem",}}>
                       <RegistrationBlock/>
 
 
@@ -49,11 +63,19 @@ export default function Header() {
 
             </div>
 
+            <Waypoint
+                onEnter={handleEnter}
+                onLeave={handleLeave}
+            >
 
             <div className={classes.headerNav}>
                 <Navbar />
             </div>
+            </Waypoint>
 
         </div>
     )
 }
+
+
+export default connect(null,{setWindowMainScroll})(Header);

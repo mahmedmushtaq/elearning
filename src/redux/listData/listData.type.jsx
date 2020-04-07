@@ -1,0 +1,6 @@
+ const LIST_TYPE = {
+    ADD_LIST:"ADD_LIST",
+    JOINED_CLASSES_LIST:"JOINED_CLASS_LIST"
+};
+
+ export default LIST_TYPE;

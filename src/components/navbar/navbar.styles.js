@@ -14,8 +14,22 @@ const styles = makeStyles(theme=>({
         color:theme.palette.common.purple,
         borderRadius:"50%",
         [theme.breakpoints.down('xs')]:{
-            marginRight:0
+            marginRight:".7rem"
         }
+    },
+    iconScroll:{
+        width:"3rem",
+        height:'3rem',
+        textAlign:"center",
+        marginRight:".6rem",
+        fontSize:"3rem",
+        backgroundColor:"white",
+        color:theme.palette.common.purple,
+        borderRadius:"50%",
+        [theme.breakpoints.down('xs')]:{
+            marginRight:".7rem"
+        }
+
     },
     drawerItem:{
         padding:"0.4rem 2rem",
@@ -27,13 +41,35 @@ const styles = makeStyles(theme=>({
     },
     drawer: {
         backgroundColor: theme.palette.common.yellow,
+
+
+    },drawerScroll: {
+        backgroundColor: theme.palette.common.yellow,
+        marginTop:"4rem"
+
     },
     divider:{
         backgroundColor:"white"
     },
 
-    header:{
-        color:"white"
+    navBarContainer:{
+        color:"white",
+        position:"fixed",
+
+    },
+    navBarContainerScroll:{
+        color:"black",
+        backgroundColor:theme.palette.common.yellow,
+        position:"fixed",
+
+        marginTop:"-16px",
+        width:"100vw",
+        zIndex:13333,
+
+
+    },
+    indicator:{
+        backgroundColor:"transparent"
     }
 
 

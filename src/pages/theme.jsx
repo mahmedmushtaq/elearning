@@ -11,7 +11,8 @@ export default createMuiTheme({
          wetAsphalt:wetAsphalt
       },
        primary:{
-            main:yellowColor
+            main:yellowColor,
+
        }
    },
 
@@ -46,6 +47,13 @@ export default createMuiTheme({
            fontSize:".7rem",
        }
        
+   },
+   overrides:{
+       MuiButton: {
+           containedPrimary:{
+              color:"white"
+          }
+       },
    }
 })
 
