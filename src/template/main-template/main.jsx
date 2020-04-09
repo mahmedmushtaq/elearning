@@ -7,10 +7,10 @@ import {setWindowMainScroll} from "../../redux/windowMain/windowMain.actions";
 const MainTemplate = (props)=>{
     const {setWindowMainScroll} = props;
     const classes = styles();
-    setWindowMainScroll(true);
+   // setWindowMainScroll(true);
     return(
         <div>
-        <Navbar/>
+        <Navbar windowScroll navbarlistPanel/>
         <br/><br/><br/>
         <br/><br/>
         <div className={classes.container}>

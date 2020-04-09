@@ -54,6 +54,11 @@ export default createMuiTheme({
               color:"white"
           }
        },
+       MuiLink:{
+           root:{
+               underline:"none"
+           }
+       }
    }
 })
 

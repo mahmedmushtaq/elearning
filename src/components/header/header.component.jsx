@@ -7,6 +7,7 @@ import RegistrationBlock from "../registration-block/registration-block.componen
 import {Waypoint} from "react-waypoint";
 import {connect} from"react-redux";
 import {setWindowMainScroll} from "../../redux/windowMain/windowMain.actions";
+import {firebaseAuth} from "../../config/firebase.config";
 
 
 function Header(props) {
@@ -19,6 +20,7 @@ function Header(props) {
     const {setWindowMainScroll} = props;
 
 
+
     const handleEnter = ()=>{
         setWindowMainScroll(false);
 
@@ -28,9 +30,11 @@ function Header(props) {
     }
 
 
+
+
     return(
 
-        <div className="header">
+        <div className="header"  id={"header"}>
             <div className={classes.headerContainer}>
                 <div className={classes.headerImage}>
 

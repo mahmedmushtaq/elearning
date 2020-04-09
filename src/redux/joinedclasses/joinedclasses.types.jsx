@@ -1,0 +1,3 @@
+export const JOINED_CLASSES_TYPES={
+    ADD_DATA:"ADD_DATA"
+};

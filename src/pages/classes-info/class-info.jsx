@@ -10,26 +10,35 @@ import {createStructuredSelector} from "reselect";
 import {isJoinedClasses} from "../../redux/listData/listData.reselect";
 import {Switch,Route,withRouter} from "react-router-dom";
 import {SwipeableDrawer} from "@material-ui/core";
+import {getUserData} from "../../redux/registration/registration.selector";
+import {checkUserCreatedClass} from "../../assets/requests/api";
+import axios from "axios";
 
 const ClassInfo = (props)=>{
 
-    const {addListData,isJoinedClasses} = props;
+    const {addListData,isJoinedClasses,getUserData} = props;
     const paramsId = props.match.params.id ? props.match.params.id : 0;
+    const paramsClassType = props.match.params.class_type;
+
+    console.log(paramsId+""+paramsClassType);
 
     useEffect(()=>{
            // ========== received id ==============
          //
-          isJoinedClasses ? (
-              addListData(joinedClassFeatures(paramsId))
-          ):(
-              addListData(createdClassFeatures(paramsId))
-          );
+        axios.get(checkUserCreatedClass+paramsId+"/"+getUserData.id)
+            .then(result=>{
+                console.log(result);
+            }).catch(err=>{
+                console.log(err.response.data);
+        })
+
+       addListData(joinedClassFeatures(paramsId,paramsClassType))
 
     },[])
 
     return(
         <MainTemplate>
-            <List />
+            <List  classinfo/>
 
 
 
@@ -39,7 +48,8 @@ const ClassInfo = (props)=>{
 }
 
 const mapStateToProps = createStructuredSelector({
-    isJoinedClasses
+    isJoinedClasses,
+    getUserData
 })
 
 

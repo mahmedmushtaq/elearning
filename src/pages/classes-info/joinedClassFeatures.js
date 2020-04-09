@@ -1,11 +1,11 @@
-const joinedClassFeatures = (paramsId)=> ([{
+const joinedClassFeatures = (paramsId,paramsClassType)=> ([{
             name:"Videos",
             _id:"1434jlsdf",
-            path:"/joined-classes-list/"+paramsId+"/videos-list"
+            path:"/videos/"+paramsClassType+"/"+paramsId
    },{
             name:"Assignments",
             _id:"sdlkf234",
-             path:"/joined-classes-list/"+paramsId+"/assignments-list"
+             path:"/assignments/"+paramsClassType+"/"+paramsId
  },
 ])
 

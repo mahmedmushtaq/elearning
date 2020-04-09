@@ -7,6 +7,11 @@ const initialData = {
 
 const listReducer = (state=initialData,actions)=>{
     switch (actions.type) {
+        case LIST_TYPE.EMPTY_LIST:
+            return{
+                ...state,
+                list:[],
+            }
         case LIST_TYPE.ADD_LIST:
            return {
                ...state,

@@ -1,12 +1,14 @@
 import React,{useState} from "react";
 
-import {Link} from "react-scroll";
+import {Link as ref} from "react-scroll";
+import {Link} from "react-router-dom";
 import {Grid, Typography,Divider, Button,List, Hidden,ListItem,ListItemText, Tabs, Tab, Paper, useMediaQuery, SwipeableDrawer} from "@material-ui/core";
 import { useTheme,makeStyles } from "@material-ui/styles";
 import styles from "./navbar.styles";
 import {IconButton} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import navbarlist from "./navbarlist";
+import navbarListPanel from "./navbarlistpanel";
 import {connect} from "react-redux";
 import {combineReducers} from "redux";
  import {isWindowScroll} from "../../redux/windowMain/windowMain.reselect";
@@ -19,8 +21,18 @@ import {createStructuredSelector} from "reselect";
     const theme = useTheme();
     const [open,setOpen] = useState(false);
     const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
-    const {isWindowScroll} = props;
-    console.log("check window scroll"+isWindowScroll);
+     const {windowScroll} = props;
+    const {windowScrollRedux} = props;
+    const isWindowScroll = windowScrollRedux || windowScroll;
+   // const {isWindowScroll} = props;
+    const {navbarlistPanel} = props;
+
+
+    const navbarlistLocal = navbarlistPanel ? navbarListPanel : navbarlist;
+
+    const LinkLocal = navbarlistPanel ? Link : ref;
+
+
 
 
 
@@ -35,11 +47,11 @@ import {createStructuredSelector} from "reselect";
 
                     <List>
                         {
-                            navbarlist.map(list=>{
+                            navbarlistLocal.map(list=>{
                                 return(
                                     <div key={list.key}>
 
-                                        <ListItem className={classes.drawerItem} component={Link} to={list.path} duration={500} smooth={true} button onClick={() => {
+                                        <ListItem className={classes.drawerItem} component={ref} to={list.path} duration={500} smooth={true} button onClick={() => {
                                             setOpen(false);
                                         }} disableRipple>
                                             <ListItemText disableTypography>{list.name}</ListItemText>
@@ -84,9 +96,9 @@ import {createStructuredSelector} from "reselect";
 
          >
                     {
-                        navbarlist.map(list=>{
+                        navbarlistLocal.map(list=>{
                             return(
-                                <Tab key={list.key}  className={classes.tabItem}  label={list.name} component={Link} to={list.path} duration={500} smooth={true}  disableRipple/>
+                                <Tab key={list.key}  className={classes.tabItem}  label={list.name} component={LinkLocal} to={list.path} duration={500} smooth={true}  disableRipple/>
                             )
                         })
                     }
@@ -141,6 +153,6 @@ import {createStructuredSelector} from "reselect";
    )
 }
 const mapStateToProps = createStructuredSelector({
-      isWindowScroll
+      windowScrollRedux:isWindowScroll
 })
 export default connect(mapStateToProps)(Navbar)

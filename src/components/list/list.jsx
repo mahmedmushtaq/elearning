@@ -11,15 +11,19 @@ import {selectListData} from "../../redux/listData/listData.reselect";
 import {Link} from "react-router-dom";
 
 
+
 const List = (props)=>{
     const classes = styles();
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
     const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
     const matchesXS = useMediaQuery(theme.breakpoints.down("xs"));
-    const {listData} = props;
-    console.log(" ===================== LIST DATA ======================= ");
-    console.log(listData);
+    const {listData,classinfo,isJoinedClass} = props;
+
+
+
+
+
     const listOptions = {
         loop: true,
         autoplay: true,
@@ -32,22 +36,32 @@ const List = (props)=>{
           <Grid container align={matchesSM?"center":undefined} justify={matchesSM?"center":undefined}  >
 
             <Grid item container direction={"column"} justify={"center"} alignItems={"center"} sm>
-                <Grid item>
-                    <Button variant={"contained"} color={"primary"} className={classes.listBtn}>
 
-                        <Typography variant={"h6"} style={{color:"white"}}>Explore Participants</Typography></Button>
-                </Grid>
+                {
+                    classinfo ? (
+                        <Grid item>
+                            <Button variant={"contained"} color={"primary"} className={classes.listBtn}>
+
+                                <Typography variant={"h6"} style={{color: "white"}}>Explore
+                                    Participants</Typography></Button>
+                        </Grid>
+                    ) : (<div></div>)
+                }
+
 
 
                 {
-                    listData.map(list=>(
-                        <Grid key={list._id} component={Link} to={list.path} item>
-                            <Button variant={"outlined"} className={classes.listBtn}>
 
-                                <Typography variant={"h6"}>{list.name}</Typography></Button>
-                        </Grid>
+                    listData.map(list=>(
+                    <Grid key={list._id} component={Link} to={!list.path ? (isJoinedClass ? "/class-info/joined-class/" + list.joiningClassId : "/class-info/created-class/" + list._id ? list._id.toString():"")  : list.path} item>
+                    <Button variant={"outlined"} className={classes.listBtn}>
+
+                    <Typography variant={"h6"}>{list.name}</Typography></Button>
+                    </Grid>
+
 
                     ))
+
                 }
 
 
@@ -71,6 +85,7 @@ const List = (props)=>{
     )
 }
 const mapStateToProps = createStructuredSelector({
-    listData:selectListData
+    listData:selectListData,
+
 })
 export default connect(mapStateToProps)(List);

@@ -3,28 +3,30 @@ import styles from "./created-classes-list.style";
 import MainTemplate from "../../template/main-template/main";
 import List from "../../components/list/list";
 import {connect} from "react-redux";
-import {addListData,isJoinedClasses} from "../../redux/listData/listData.actions";
+import {getClassList,isJoinedClasses} from "../../redux/listData/listData.actions";
+import {withRouter} from "react-router-dom";
+import {getUserData} from "../../redux/registration/registration.selector";
+import {createdClassesList} from "../../assets/requests/api";
+import {createStructuredSelector} from "reselect";
 
 const CreatedClassList = (props)=>{
     const classes = styles();
-    const {isJoinedClasses,addListData} = props;
-    const path = props.match.params.path;
-    const id = props.match.params.id;
+    const {isJoinedClasses,getClassList,getUserData:{id}} = props;
 
-    console.log("path is = "+path+" id is = "+id);
+
+
+        const params = props.match.params ? props.match.params : undefined;
+        const path = params ? params.path : undefined;
+        const idParams = params ? params.id : undefined;
+        console.log("path is = "+path+" id is = "+id);
+
+
+
 
 
    useEffect(()=>{
-        addListData([{
-           name:"Nehvi 1",
-           _id:"1434jlsdf",
-            path:"/class-info/1434jlsdk"
-       },{
-           name:"BESE 10AB",
-           _id:"sdlkf234",
-            path:"/class-info/1434jlsdk"
-       }]);
-        isJoinedClasses(false);
+       getClassList(createdClassesList+id);
+
    },[])
 
     return(
@@ -35,5 +37,8 @@ const CreatedClassList = (props)=>{
     )
 }
 
+const mapStateToProps = createStructuredSelector({
+    getUserData
+})
 
-export default connect(null,{addListData,isJoinedClasses})(CreatedClassList);
+export default withRouter(connect(mapStateToProps,{getClassList,isJoinedClasses})(CreatedClassList));

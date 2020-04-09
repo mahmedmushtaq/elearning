@@ -6,12 +6,15 @@ import add from "../../assets/animations/add";
 import Lottie from "react-lottie";
 import {useTheme} from "@material-ui/styles";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {emptyList} from "../../redux/listData/listData.actions";
 
-const Classes = ()=>{
+const Classes = (props)=>{
     const classes = styles();
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down("sm"));
     const matchesMD = useMediaQuery(theme.breakpoints.down("md"));
+    const {emptyList} = props;
     const addOption = {
         loop: true,
         autoplay: true,
@@ -27,7 +30,7 @@ const Classes = ()=>{
 
             <Grid item container direction={"column"} justify={"center"} alignItems={"center"} sm>
 
-             <Grid component={Link} to={'/create-new-class'}  item alignItems={"center"} container justify={matchesSM?"center":undefined} className={classes.classesItem}>
+             <Grid component={Link} underline={"none"} to={'/create-new-class'}  item alignItems={"center"} container justify={matchesSM?"center":undefined} className={classes.classesItem}>
                  <Grid item className={classes.classesItemImg}>
                      <img src="https://img.icons8.com/doodle/48/000000/add.png"/>
                  </Grid>
@@ -50,18 +53,18 @@ const Classes = ()=>{
                    </Grid>
                </Grid>
 
-               <Grid component={Link} to={'/joined-classes-list'} item container alignItems={"center"} justify={matchesSM?"center":undefined} className={classes.classesItem}>
+               <Grid onClick={()=>emptyList()} component={Link} to={'/joined-classes-list'} item container alignItems={"center"} justify={matchesSM?"center":undefined} className={classes.classesItem}>
                    <Grid item className={classes.classesItemImg}>
                        <img src="https://img.icons8.com/bubbles/48/000000/list.png"/>
                    </Grid>
                    <Grid item>
-                       <Button variant={"outlined"} className={classes.classBtn}>
+                       <Button variant={"outlined"}  className={classes.classBtn}>
 
                            <Typography variant={"h6"}>Joined classes list</Typography></Button>
                    </Grid>
                </Grid>
 
-                <Grid component={Link} to={'/created-classes-list'} item container alignItems={"center"} justify={matchesSM?"center":undefined} className={classes.classesItem}>
+                <Grid onClick={()=>emptyList()}  component={Link} to={'/created-classes-list'} item container alignItems={"center"} justify={matchesSM?"center":undefined} className={classes.classesItem}>
                     <Grid item className={classes.classesItemImg}>
                         <img src="https://img.icons8.com/bubbles/48/000000/list.png"/>
                     </Grid>
@@ -87,4 +90,4 @@ const Classes = ()=>{
     )
 }
 
-export default Classes;
+export default connect(null,{emptyList})(Classes);
