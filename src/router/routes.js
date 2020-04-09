@@ -16,6 +16,8 @@ import ClassInfo from "../pages/classes-info/class-info";
 import UploadVideo from "../pages/upload-video/upload-video";
 import AuthRoutes from "./authRoutes";
 import SignoutComponent from "../pages/signout";
+import Assignments from "../pages/assignments/assignment";
+import Video from "../pages/videos/video";
 
 
 function Routes() {
@@ -27,6 +29,7 @@ function Routes() {
     const ClassInfoAuth = AuthRoutes(ClassInfo);
     const CreateNewClassAuth = AuthRoutes(CreateNewClass);
     const SignoutAuth = AuthRoutes(SignoutComponent);
+
   return (
     <ThemeProvider theme={theme}>
        <BrowserRouter>
@@ -42,6 +45,8 @@ function Routes() {
                <Route  path={"/created-classes-list/:id/:path"} component={CreatedClassListAuth}/>
 
                <Route exact path={"/create-new-class"} component={CreateNewClassAuth}/>
+               <Route  path={"/assignments/:path/:id"} component={Assignments}/>
+               <Route  path={"/videos/:path/:id"} component={Video}/>
                <Route  path={"/class-info/:class_type/:id"} render={()=><ClassInfoAuth/>}/>
                <Route  path={"/sign-out"} render={()=><SignoutAuth/>}/>
 

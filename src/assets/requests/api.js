@@ -1,4 +1,5 @@
-const url = "http://localhost:3001";
+//const url = "http://localhost:3001";
+const url = "https://elearningwebsite-backend.herokuapp.com";
 
 export const createNewUserUrl = url+"/registration/";
 export const createNewClassUrl = url+"/class/new";

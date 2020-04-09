@@ -25,12 +25,7 @@ const ClassInfo = (props)=>{
     useEffect(()=>{
            // ========== received id ==============
          //
-        axios.get(checkUserCreatedClass+paramsId+"/"+getUserData.id)
-            .then(result=>{
-                console.log(result);
-            }).catch(err=>{
-                console.log(err.response.data);
-        })
+
 
        addListData(joinedClassFeatures(paramsId,paramsClassType))
 

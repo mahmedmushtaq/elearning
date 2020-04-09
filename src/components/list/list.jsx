@@ -53,7 +53,7 @@ const List = (props)=>{
                 {
 
                     listData.map(list=>(
-                    <Grid key={list._id} component={Link} to={!list.path ? (isJoinedClass ? "/class-info/joined-class/" + list.joiningClassId : "/class-info/created-class/" + list._id ? list._id.toString():"")  : list.path} item>
+                    <Grid key={list._id} component={Link} to={!list.path ? (isJoinedClass ? "/class-info/joined-class/" + list.joiningClassId : "/class-info/created-class/" + list._id.toString())  : list.path} item>
                     <Button variant={"outlined"} className={classes.listBtn}>
 
                     <Typography variant={"h6"}>{list.name}</Typography></Button>
